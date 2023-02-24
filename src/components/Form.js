@@ -1,11 +1,13 @@
 import React from "react";
 
-function handleSubmit(e) {
-    e.preventDefault();
-    alert('Hello, world!');
-  }
+
 
 function Form(props) {
+    
+    function handleSubmit(e) {
+    e.preventDefault();
+    props.addTask("Say hello!");
+}
   return (
     <form onSubmit={handleSubmit}>       
       <h2 className="label-wrapper">
