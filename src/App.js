@@ -4,7 +4,7 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import { nanoid } from "nanoid";
 
-function usePrevious(value) {
+function usePrevious(value) {  // gestione da tastiera
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -12,28 +12,26 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const FILTER_MAP = {
+const FILTER_MAP = {    //vari campi di Filtraggio e funzionalità
   All: () => true,
   Active: (task) => !task.completed,
   Completed: (task) => task.completed
 };
 
-const FILTER_NAMES = Object.keys(FILTER_MAP);
+const FILTER_NAMES = Object.keys(FILTER_MAP);   //Array di filters name
 
 function App(props) {
 
-
-
-const [filter, setFilter] = useState('All');
+const [filter, setFilter] = useState('All');  //gancio che mostra tutti i filtri presenti
 const filterList = FILTER_NAMES.map((name) => (
-  <FilterButton
+  <FilterButton                           // invoco filterButton con i seguenti props
     key={name}
     name={name}
     isPressed={name === filter}
     setFilter={setFilter}
   />
 ));
-  function deleteTask(id) {
+  function deleteTask(id) {             //visualizza task che non hanno un determinato id "eliminato"
     const remainingTasks = tasks.filter((task) => id !== task.id);
     setTasks(remainingTasks);
   }
@@ -52,8 +50,8 @@ const filterList = FILTER_NAMES.map((name) => (
 
     const [tasks, setTasks] = useState(props.tasks);
     
-    function addTask(name) {
-      const newTask = { id: `todo-${nanoid()}`, name, completed: false };
+    function addTask(name) {                  //aggiunge task
+      const newTask = { id: `todo-${nanoid()}`, name, completed: false };  // nano serve per gli id univoci
   setTasks([...tasks, newTask]);
   }
 
@@ -70,7 +68,7 @@ const filterList = FILTER_NAMES.map((name) => (
     setTasks(updatedTasks);
   }
 
-  const taskList = tasks.filter(FILTER_MAP[filter]).map((task) => (
+  const taskList = tasks.filter(FILTER_MAP[filter]).map((task) => (  //mappo solo quelli che rispecchiano il filtro
     <Todo
     id={task.id}
     name={task.name}
