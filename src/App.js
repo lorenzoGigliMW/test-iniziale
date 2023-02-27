@@ -22,7 +22,7 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);   //Array di filters name
 
 function App(props) {
 
-const [filter, setFilter] = useState('All');  //gancio che mostra tutti i filtri presenti
+const [filter, setFilter] = useState('All');  //gancio che mostra tutti i filtri presenti e imposta pred a all
 const filterList = FILTER_NAMES.map((name) => (
   <FilterButton                           // invoco filterButton con i seguenti props
     key={name}
@@ -51,8 +51,12 @@ const filterList = FILTER_NAMES.map((name) => (
     const [tasks, setTasks] = useState(props.tasks);
     
     function addTask(name) {                  //aggiunge task
+      if(name !=""){
       const newTask = { id: `todo-${nanoid()}`, name, completed: false };  // nano serve per gli id univoci
-  setTasks([...tasks, newTask]);
+      setTasks([...tasks, newTask])
+      alert("task "+ name +" aggiunta");
+    }else{
+    alert("Impossibile creare task senza nome");}
   }
 
   function toggleTaskCompleted(id) {
