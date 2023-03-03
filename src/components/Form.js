@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 
-function Form(props) {
-    const [name, setName] = useState('');
-
-    function handleChange(e) {
-        setName(e.target.value);
+//function Form(props) {
+  class Form extends Component{
+    //const [name, setName] = useState('');
+    constructor(props) {
+      super(props);
+      this.state = {
+        name: '' 
+      }
+    }
+    setName(nameS) {
+      this.setState({name:nameS})
+    }
+  
+    handleChange=(e)=> {
+        this.setName(e.target.value);
       }
        
-    function handleSubmit(e) {
+    handleSubmit=(e)=> {
     e.preventDefault();
-    props.addTask(name);
-    setName("");
+    this.props.addTask(this.state.name);
+    this.setName('');
 }
+render =() => {
   return (
-    <form onSubmit={handleSubmit}>  
+    <form onSubmit={this.handleSubmit}>  
        
       <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg">
@@ -26,14 +37,14 @@ function Form(props) {
   className="input input__lg"
   name="text"
   autoComplete="off"
-  value={name}
-  onChange={handleChange}
+  value={this.state.name}
+  onChange={this.handleChange}
 />
       <button type="submit" className="btn btn__primary btn__lg">
         Add
       </button>
     </form>
-  );
-}
+  );}
 
+  }
 export default Form;
