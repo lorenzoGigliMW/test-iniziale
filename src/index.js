@@ -4,27 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter ,Routes,Route} from 'react-router-dom' ; 
-import Layout from "./pages/Layout";
-import Home from "./pages/Home";
+import Contact from "./pages/Contact";
 import Blogs from "./pages/Blogs";
+import Navbar from "./pages/Navbar";
 
 // const DATA = [
 //   { id: "todo-0", name: "Eat", completed: true },
 //   { id: "todo-1", name: "Sleep", completed: false },
 //   { id: "todo-2", name: "Repeat", completed: false }
-// ];
+// ];<App/>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
   <React.StrictMode>
-    <BrowserRouter> 
-    <App />
-    <Routes> 
-        <Route path="/" element={<Layout />}/>
-        <Route path="/" element={<Home />}/>
-        <Route path="/" element={<Blogs />}/>
-      </Routes>
+    <BrowserRouter>
+    <Navbar/> 
+    <Routes> <Route exact path="/" element={<App/>}/> </Routes>
+    
+    <Routes> <Route exact path="/contact" element={<Contact/>}/> </Routes>
+    <Routes> <Route exact path="/blogs" element={<Blogs/>}/> </Routes> 
     </BrowserRouter>
   </React.StrictMode>
   

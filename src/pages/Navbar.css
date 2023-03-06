@@ -1,0 +1,14 @@
+.Navbar {
+    height:10vh;
+    display:flex;
+    Justify-content:space-around;
+    align-items:center;
+    background-color:#444;
+    color:#fff;
+  }
+  .Links{
+    display :flex;
+    justify-content:space-between;
+    list-style:none;
+    width:30%;
+  }

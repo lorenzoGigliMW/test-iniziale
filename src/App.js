@@ -1,8 +1,9 @@
 import React, {  Component } from "react";//useState, useRef, useEffect,
 import Todo from "./components/Todo";
 import Form from "./components/Form";
-import FilterButton from "./components/FilterButton";
+//import FilterButton from "./components/FilterButton";
 import { nanoid } from "nanoid";
+import FilterButton from "./components/FilterButton";
 
 //import { Routes, Route } from 'react-router-dom';
 //import Home from './Pages/Home';
@@ -101,9 +102,10 @@ editTask=(id, newName)=> {
   };
 
  filterList = () => FILTER_NAMES.map((name) => (
-  <FilterButton                           // invoco filterButton con i seguenti props
+  <FilterButton                         // invoco filterButton con i seguenti props
     key={name}
     name={name}
+    //selezionato={this.state.filter}
     isPressed={name === this.state.filter}  
     setFilter={() => this.setFilter(name)}
  /> 
