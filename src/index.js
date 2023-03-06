@@ -20,10 +20,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <Navbar/> 
-    <Routes> <Route exact path="/" element={<App/>}/> </Routes>
+    <Routes> <Route exact path="/" element={<App/>}/>
     
-    <Routes> <Route exact path="/contact" element={<Contact/>}/> </Routes>
-    <Routes> <Route exact path="/blogs" element={<Blogs/>}/> </Routes> 
+     <Route exact path="/contact" element={<Contact/>}/> 
+     <Route exact path="/blogs" element={<Blogs/>}/> </Routes> 
     </BrowserRouter>
   </React.StrictMode>
   

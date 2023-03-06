@@ -13,13 +13,15 @@ function Blogs(){
       const data =await rawdata.json();
       const posts =data.slice(0,8)
       setPosts(posts)
+      console.log(posts)
     }
   
     return (
       <div className="App">
           <h1>Blogs Articles</h1>
           {posts.map(post=>(
-          <Link to={`/${posts.id}`}>
+            
+          <Link to={`/blogs/${posts.id}`}>
             <h4 key={posts.id}>{post.title}</h4>
           </Link>
       
