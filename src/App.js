@@ -5,17 +5,11 @@ import Form from "./components/Form";
 
 import FilterButton from "./components/FilterButton";
 import axios from 'axios';
-// import MostraTodo from "./components/MostraTodo";
-// import EditaTodo from "./components/EditaTodo";
-// import AddTodo from "./components/AddTodo";
+
 //import { nanoid } from "nanoid";
 import PropTypes from 'prop-types'
 
-// const express= require('express');
-// var router=express.Router();
-// const app=express()
-// app.use(express.static('public'))
-// app.use(express.json())
+
 
 //import { Routes, Route } from 'react-router-dom';
 //import Home from './Pages/Home';
@@ -58,35 +52,13 @@ class App extends Component {
     this.setState({ tasks: taskk })
   }
 
+  //EDITO UNA TASK
+  editTask = (id, newName) => {
 
-  // deleteTask=(id)=> {             //visualizza task che non hanno un determinato id "eliminato"
-  //   cancellaTask(id)
-  //     const remainingTasks = this.state.tasks.filter((task) => id !== task.id);
-  //     this.setTasks(remainingTasks);
-  //   }
-
-
-  // editTask=(id,newName,completed)=> {
-
-  //     axios.post(`http://localhost:3005/api/todo/edit/${id}`, {
-  //       'Access-Control-Allow-Origin': '*',
-  //       'Content-Type': 'application/json',
-  //     }, {id,newName,completed})
-  //   .then((res) => {
-  //     this.setTasks({name:res.newName})
-  //       console.log(res.data)
-  //       this.visualizzaTodo();
-  //   }).catch((error) => {
-  //       console.log(error)
-  //     });
-
-
-  editTask = (id,newName) => {
-
-    axios.post('http://localhost:3005/api/todo/edit/'+id,{name:newName},{
+    axios.post('http://localhost:3005/api/todo/edit/' + id, { name: newName }, {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-    }, )
+    },)
       .then((res) => {
         //this.setTasks({ name: res.newName })
         console.log(res.data)
@@ -94,23 +66,6 @@ class App extends Component {
       }).catch((error) => {
         console.log(error)
       });
-
-
-
-
-    // const nuovoNome ={name:newName};
-    // axios.put('http://localhost:3005/api/todo/edit', nuovoNome, {
-    //   'Access-Control-Allow-Origin': '*',
-    //   'Content-Type': 'application/json',
-    // } )
-    //  .then((res) => {
-    //   console.log(res)
-    //   this.setTasks(nuovoNome)
-    //     console.log(res.data)
-    //     this.visualizzaTodo();
-    // }).catch((error) => {
-    //     console.log(error)
-    // }); 
 
     const editedTaskList = this.state.tasks.map((task) => {
       // if this task has the same ID as the edited task
@@ -125,9 +80,10 @@ class App extends Component {
 
   // const [tasks, setTasks] = useState(props.tasks);
 
+  //AGGIUNGO UNA TASK
   addTask = (idAdd, nameAdd) => {
 
-    axios.post('http://localhost:3005/api/todo/add', { id:idAdd , name: nameAdd  },{
+    axios.post('http://localhost:3005/api/todo/add', { id: idAdd, name: nameAdd }, {
     }, //{ id: idAdd, name: nameAdd }
 
     )
@@ -144,9 +100,10 @@ class App extends Component {
 
   }
 
+  //SETTO COMPLETED A TRUE PER TUTTE LE TASK
   mostraTodo = () => {
     axios.post('http://localhost:3005/api/todos', {
-     
+
     }, {})//
 
       .then(function (response) {
@@ -158,17 +115,17 @@ class App extends Component {
       });
 
     const TaskCompleted = this.state.tasks.map((task) => {
-      return {completed: true}
-       
+      return { completed: true }
+
     }
     )
     this.setTasks(TaskCompleted)
     this.visualizzaTodo();
   }
 
-
+  //ELIMINO UNA TASK
   deleteTask = (id) => {
-    axios.delete('http://localhost:3005/api/todo/del/'+id,{},{})
+    axios.delete('http://localhost:3005/api/todo/del/' + id, {}, {})
       .then(function (response) {
         console.log(response);
       })
@@ -181,7 +138,7 @@ class App extends Component {
 
 
 
-
+  //RICONOSCE IL CLICK INVERTE COMPLETED SU UNA TASK
   toggleTaskCompleted = (id) => {
     const updatedTasks = this.state.tasks.map((task) => {
       // if this task has the same ID as the edited task
@@ -195,6 +152,7 @@ class App extends Component {
     this.setTasks(updatedTasks);
   }
 
+  //VISUALIZZA LISTA TASK DATO UN FILTRO
   taskList = () => {
     //debugger
     const tastksState = this.state.tasks;
@@ -222,22 +180,6 @@ class App extends Component {
 
   ));
 
-
-
-
-  //   const taskList = tasks.filter(FILTER_MAP[filter]).map((task) => (  //mappo solo quelli che rispecchiano il filtro
-  //     <Todo
-  //     id={task.id}
-  //     name={task.name}
-  //     completed={task.completed}
-  //     key={task.id}
-  //     toggleTaskCompleted={toggleTaskCompleted}
-  //     deleteTask={deleteTask}
-  //     editTask={editTask}
-  //   />
-  // )
-  // );
-
   // tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
   // headingText = `${taskList.length} ${tasksNoun} remaining`;
   // listHeadingRef = useRef(null);
@@ -249,6 +191,8 @@ class App extends Component {
   //   }
   // }, [this.state.tasks.length, prevTaskLength]);
 
+
+  //GET VISUALIZZA TASKS
   visualizzaTodo = () => {//filtro
     // contesto della funzione dentro
     axios.get('http://localhost:3005/api/todos')
@@ -268,15 +212,6 @@ class App extends Component {
   };
 
 
-
-  // app.use(function (req, res, next) {
-  //   res.header("Access-Control-Allow-Origin", "*");
-  //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //   next();
-  //   });
-
-
   componentDidMount = () => {
 
 
@@ -286,96 +221,7 @@ class App extends Component {
 
   }
 
-  // contesto della funzione did mount
-
-  // contesto del then
-  // console.log('pippo', pippo);
-  // console.log('pippo2', pippo2);
-  // const tasks=this.state.tasks
-
-  // if(this.state.filter==="Active"){
-  //   tasks=tasks.filter(this.completed===false).map(this.task)
-  // }else
-  // if(this.state.filter==="Completed"){
-  //   tasks=tasks.filter(this.completed===true).map(this.task)
-  // }else{ tasks=tasks.map(this.task)}
-
-
-
-  //   this.state = {
-  //     name: '',
-  //     email: ''
-  // }
-  // }
-  // onChangeUserName(e) {
-  // this.setState({ name: e.target.value })
-  // }
-  // onChangeUserEmail(e) {
-  // this.setState({ email: e.target.value })
-  // }
-  // onSubmit(e) {
-  // e.preventDefault()
-  // const userObject = {
-  //     name: this.state.name,
-  //     email: this.state.email
-  // };
-  //   axios.post('http://localhost:3005/api/todo/add', userObject)
-  //   .then((res) => {
-  //       console.log(res.data)
-  //   }).catch((error) => {
-  //       console.log(error)
-  //   });
-  // this.setState({ name: '', email: '' })
-
-
-
-  //  function editaTodo() {
-  // // axios.post('http://localhost:3005/api/todo/edit/:id', {
-  // //   name: 'Fred',
-
-  // // })
-  // // .then(function (response) {
-  // //   console.log(response);
-  // // })
-  // // .catch(function (error) {
-  // //   console.log(error);
-  // // });
-
-  // }
-  // function editaTodo() {
-  //   axios.post('http://localhost:3005/api/todo/edit/:id', {
-  //     name: 'Fred',
-
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-
-  //   }
-
-  // function aggiungiTodo() {
-  //   axios.post('http://localhost:3005/api/todo/add', {
-  //   id:`todo-${nanoid()}`,
-  //   name: 'Fred',
-  //   completed:false
-
-  // })
-  // .then(function (response) {
-  //   console.log(response);
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
-
-
-  // } 
-
   // funzioneDentro.bind(this)();
-
-
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.state.tasks.length !== prevState.tasks.length) {        //
@@ -402,34 +248,6 @@ class App extends Component {
   //   document.getElementById('name').value = name;
   //   document.getElementById('editForm').action = `http://localhost:3005/api/todo/${id}`;
   // }
-
-
-  // mostraTodo=(taskSalvate)=>{app.post('/api/todos',(req,res)=>{
-  // res.status(200).json({data:taskSalvate})
-  //   })}
-
-
-  // filtroTodo=(taskSalvate)=>{
-  //   app.get('/api/todos',(req,res)=>{
-  //   FILTER_NAMES.map((taskSalvate.name) => ())
-  //   res.status(200).json({data:taskSalvate})
-  //     })}
-
-
-  // addTodo=(taskSalvate)=>{
-  //   app.post('/api/todos/add',(req,res)=>{
-  //    const daAggiungere=req.body
-  //    taskSalvate.push(daAggiungere)
-  //   res.status(200).json({data:taskSalvate})
-  //     })}
-
-  //     modificaTodo=(taskSalvate)=>{app.post('/api/todos/edit',(req,res)=>{
-  //       {editTask(id,newName)}
-  //       res.status(200).json({data:taskSalvate})
-  //         })}
-
-
-
 
   render = () => {
     const tasksNoun = this.taskList().length !== 1 ? 'tasks' : 'task';
@@ -461,7 +279,6 @@ class App extends Component {
     );
   }
 }
-// <button type="submit" onClick={mostraTodo()} >Lista Todo </button>
 
 App.propType = {
   tasks: PropTypes.array

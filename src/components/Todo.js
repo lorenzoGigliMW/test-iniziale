@@ -8,45 +8,45 @@ import React, { Component } from "react";
 //   return ref.current;
 // }
 
-class Todo extends Component{
+class Todo extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditing:false,
-      newName: ''
-    }
-    this.editFieldRef = React.createRef();  /****************************************************************/
-    this.editButtonRef = React.createRef();
-  }
-  
-  setEditing(edit) {
-    this.setState({isEditing: edit})
-  }
-  setNewName(nName) {
-    this.setState({newName: nName})
-  }
+
   //const [isEditing, setEditing] = useState(false);
   //const [newName, setNewName] = useState('');
 
   //const editFieldRef = useRef(null);
   //const editButtonRef = useRef(null);
 
- 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditing: false,
+      newName: ''
+    }
+    this.editFieldRef = React.createRef();
+    this.editButtonRef = React.createRef();
+  }
 
-  handleChange=(e)=> {
+  setEditing(edit) {
+    this.setState({ isEditing: edit })
+  }
+  setNewName(nName) {
+    this.setState({ newName: nName })
+  }
+
+  handleChange = (e) => {
     this.setNewName(e.target.value);
   }
 
-  handleSubmit=(e)=> {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.editTask(this.props.id, this.state.newName);
     this.setNewName("");
     this.setEditing(false);
   }
-  
-  
-  editingTemplate = ()=>{ 
+
+
+  editingTemplate = () => {
     return <form className="stack-small" onSubmit={this.handleSubmit}>
       <div className="form-group">
         <label className="todo-label" htmlFor={this.props.id}>
@@ -62,14 +62,14 @@ class Todo extends Component{
         />
       </div>
       <div className="btn-group">
-      <button
-        type="button"
-        className="btn todo-cancel"
-        onClick={() => this.setEditing(false)}
-      >
-        Cancel
-        <span className="visually-hidden">renaming {this.props.name}</span>
-      </button>
+        <button
+          type="button"
+          className="btn todo-cancel"
+          onClick={() => this.setEditing(false)}
+        >
+          Cancel
+          <span className="visually-hidden">renaming {this.props.name}</span>
+        </button>
         <button type="submit" className="btn btn__primary todo-edit" >
           Save
           <span className="visually-hidden">new name for {this.props.name}</span>
@@ -77,42 +77,37 @@ class Todo extends Component{
       </div>
     </form>
   }
-  viewTemplate = ()=>{   
-    return  <div className="stack-small">
+  viewTemplate = () => {
+    return <div className="stack-small">
       <div className="c-cb">
-          <input
-            id={this.props.id}
-            type="checkbox"
-            defaultChecked={this.props.completed}
-            onChange={() => this.props.toggleTaskCompleted(this.props.id)}
-          />
-          <label className="todo-label" htmlFor={this.props.id}>
-            {this.props.name}
-          </label>
-        </div>                               
-        <div className="btn-group">
-        <button type="button" className="btn" onClick={() => this.setEditing(true)} ref={this.editButtonRef} //riferimento per utilizzo da tastiera**************************
-        >  
+        <input
+          id={this.props.id}
+          type="checkbox"
+          defaultChecked={this.props.completed}
+          onChange={() => this.props.toggleTaskCompleted(this.props.id)}
+        />
+        <label className="todo-label" htmlFor={this.props.id}>
+          {this.props.name}
+        </label>
+      </div>
+      <div className="btn-group">
+        <button type="button" className="btn" onClick={() => this.setEditing(true)} ref={this.editButtonRef} //riferimento per utilizzo da tastiera
+        >
           Edit <span className="visually-hidden">{this.props.name}</span>
         </button>
-          <button
-            type="button"
-            className="btn btn__danger"
-            onClick={() => this.props.deleteTask(this.props.id)}
-          >
-            Delete <span className="visually-hidden">{this.props.name}</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          className="btn btn__danger"
+          onClick={() => this.props.deleteTask(this.props.id)}
+        >
+          Delete <span className="visually-hidden">{this.props.name}</span>
+        </button>
+      </div>
     </div>
-  } //const wasEditing = usePrevious(isEditing);
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevState.isEditing && this.state.isEditing) {
-      this.editFieldRef.current.focus(); 
-    if (prevState.isEditing && !this.state.isEditing) {
-      this.editButtonRef.current.focus();
-    }
-    }
   }
+  //const wasEditing = usePrevious(isEditing);
+
+
   // useEffect(() => {
   //   if (!wasEditing && isEditing) {
   //     editFieldRef.current.focus();
@@ -121,7 +116,17 @@ class Todo extends Component{
   //     editButtonRef.current.focus();
   //   }
   // }, [wasEditing, isEditing]);
-  render =() => {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevState.isEditing && this.state.isEditing) {
+      this.editFieldRef.current.focus();
+      if (prevState.isEditing && !this.state.isEditing) {
+        this.editButtonRef.current.focus();
+      }
+    }
+  }
+
+  render = () => {
     return (<li className="todo" key={this.props.id}>{this.state.isEditing ? this.editingTemplate() : this.viewTemplate()}</li>);
-  } }
-  export default Todo;
+  }
+}
+export default Todo;
