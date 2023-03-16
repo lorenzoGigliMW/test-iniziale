@@ -44,9 +44,10 @@ class Todo extends Component{
     this.setNewName("");
     this.setEditing(false);
   }
-
-  editingTemplate = ()=>{                                  //vista di modifica
-    <form className="stack-small" onSubmit={this.handleSubmit}>
+  
+  
+  editingTemplate = ()=>{ 
+    return <form className="stack-small" onSubmit={this.handleSubmit}>
       <div className="form-group">
         <label className="todo-label" htmlFor={this.props.id}>
           New name for {this.props.name}
@@ -57,7 +58,7 @@ class Todo extends Component{
           type="text"
           value={this.state.newName}
           onChange={this.handleChange}
-          ref={this.editFieldRef}                //riferimento per utilizzo da tastiera*******************************************************
+          ref={this.editFieldRef}                //riferimento per utilizzo da tastiera
         />
       </div>
       <div className="btn-group">
@@ -69,15 +70,15 @@ class Todo extends Component{
         Cancel
         <span className="visually-hidden">renaming {this.props.name}</span>
       </button>
-        <button type="submit" className="btn btn__primary todo-edit">
+        <button type="submit" className="btn btn__primary todo-edit" >
           Save
           <span className="visually-hidden">new name for {this.props.name}</span>
         </button>
       </div>
     </form>
   }
-  viewTemplate = ()=>{                                     //vista base con impl eliminazione task
-    <div className="stack-small">
+  viewTemplate = ()=>{   
+    return  <div className="stack-small">
       <div className="c-cb">
           <input
             id={this.props.id}
@@ -121,6 +122,6 @@ class Todo extends Component{
   //   }
   // }, [wasEditing, isEditing]);
   render =() => {
-    return (<li className="todo">{this.state.isEditing ? this.editingTemplate() : this.viewTemplate()}</li>);
+    return (<li className="todo" key={this.props.id}>{this.state.isEditing ? this.editingTemplate() : this.viewTemplate()}</li>);
   } }
   export default Todo;

@@ -13,17 +13,18 @@ import Navbar from "./pages/Navbar";
 //   { id: "todo-1", name: "Sleep", completed: false },
 //   { id: "todo-2", name: "Repeat", completed: false }
 // ];<App/>
-
+//url={'https://jsonplaceholder.typicode.com/posts'}
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
   <React.StrictMode>
     <BrowserRouter>
     <Navbar/> 
-    <Routes> <Route exact path="/" element={<App/>}/>
-    
+    <Routes> 
+     <Route exact path="/" element={<App/>}/>
      <Route exact path="/contact" element={<Contact/>}/> 
-     <Route exact path="/blogs" element={<Blogs/>}/> </Routes> 
+     <Route exact path="/blogs" element={<Blogs />}/> 
+    </Routes> 
     </BrowserRouter>
   </React.StrictMode>
   

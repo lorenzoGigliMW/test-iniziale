@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { nanoid } from "nanoid";
 //function Form(props) {
   class Form extends Component{
     //const [name, setName] = useState('');
@@ -19,7 +19,7 @@ import React, { Component } from "react";
        
     handleSubmit=(e)=> {
     e.preventDefault();
-    this.props.addTask(this.state.name);
+    this.props.addTask(`todo-${nanoid()}`,this.state.name);
     this.setName('');
 }
 render =() => {
